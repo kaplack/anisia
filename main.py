@@ -18,14 +18,11 @@ def scan_repository(project):
         if any(folder in item.parts for folder in ignored_folders):
             continue
 
-        elif item.is_file() and item.suffix in extensions:
-            files.append(item)
+        files.append(item)
 
     return files
 
-files = scan_repository(project)
 
-print(f"Archivos encontrados: {len(files)}")
 
 for file in files:
     print(f" {file}")
@@ -33,8 +30,11 @@ for file in files:
 if project.exists():
     print("✅ Proyecto encontrado")
 
-    print("\nContenido del proyecto:")
+    files = scan_repository(project)
 
-    scan_repository(project)
+    print(f"Archivos encontrados: {len(files)}")
+
+    for file in files:
+        print(f"📄 {file}")
 else:
     print("❌ El proyecto no existe")
