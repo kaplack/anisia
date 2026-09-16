@@ -17,15 +17,11 @@ def scan_repository(project):
     for item in project.rglob("*"):
         if any(folder in item.parts for folder in ignored_folders):
             continue
-
-        files.append(item)
+        if item.is_file() and item.suffix in extensions:
+            files.append(item)
 
     return files
 
-
-
-for file in files:
-    print(f" {file}")
 
 if project.exists():
     print("✅ Proyecto encontrado")
