@@ -11,15 +11,24 @@ ignored_folders = [".git", "node_modules", "dist", "build", "__pycache__"]
 
 
 def scan_repository(project):
+    files = []
+
+
     for item in project.rglob("*"):
         if any(folder in item.parts for folder in ignored_folders):
             continue
 
-        if item.is_dir():
-            print(f"📁 {item}")
         elif item.is_file() and item.suffix in extensions:
-            print(f"📄 {item}")
+            files.append(item)
 
+    return files
+
+files = scan_repository(project)
+
+print(f"Archivos encontrados: {len(files)}")
+
+for file in files:
+    print(f" {file}")
 
 if project.exists():
     print("✅ Proyecto encontrado")
